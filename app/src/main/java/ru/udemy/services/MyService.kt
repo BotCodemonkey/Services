@@ -9,7 +9,7 @@ import kotlinx.coroutines.*
 
 class MyService : Service() {
 
-    private val corutineScope = CoroutineScope(Dispatchers.Main)
+    private val coroutineScope = CoroutineScope(Dispatchers.Main)
 
     override fun onCreate() {
         super.onCreate()
@@ -21,7 +21,7 @@ class MyService : Service() {
 
         val start = intent?.getIntExtra(EXTRA_START, 0) ?: 0
 
-        corutineScope.launch {
+        coroutineScope.launch {
             for (i in start until start + 100) {
                 delay(100)
                 log("Timer $i")
@@ -35,7 +35,7 @@ class MyService : Service() {
 
     override fun onDestroy() {
         super.onDestroy()
-        corutineScope.cancel()
+        coroutineScope.cancel()
         log("onDestroy")
     }
 

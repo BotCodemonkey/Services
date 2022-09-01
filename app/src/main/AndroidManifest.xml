@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="ru.udemy.services">
 
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -23,6 +25,7 @@
             </intent-filter>
         </activity>
         <service android:name=".MyService"/>
+        <service android:name=".MyForegroundService"/>
     </application>
 
 </manifest>
