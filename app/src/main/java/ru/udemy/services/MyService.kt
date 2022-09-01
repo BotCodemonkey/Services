@@ -18,12 +18,18 @@ class MyService : Service() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         log("onStartCommand")
+
+        val start = intent?.getIntExtra(EXTRA_START, 0) ?: 0
+
         corutineScope.launch {
-            for (i in 0 until 100) {
+            for (i in start until start + 100) {
                 delay(100)
                 log("Timer $i")
             }
         }
+        //return START_REDELIVER_INTENT - если приложение умирает, интент (из аргумента метода) перенаправляется снова
+        //return START_STICKY - если приложение умирает, сервис перезапускается (интент null)
+        //return START_NOT_STICKY - если приложение умирает, сервис НЕ перезапускается
         return super.onStartCommand(intent, flags, startId)
     }
 
@@ -42,8 +48,13 @@ class MyService : Service() {
     }
 
     companion object {
-        fun newIntent(context: Context): Intent {
-            return Intent(context, MyService::class.java)
+
+        private const val EXTRA_START = "start"
+
+        fun newIntent(context: Context, start: Int): Intent {
+            return Intent(context, MyService::class.java).apply {
+                putExtra(EXTRA_START, start)
+            }
         }
     }
 
