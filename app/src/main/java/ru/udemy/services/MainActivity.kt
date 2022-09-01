@@ -1,11 +1,7 @@
 package ru.udemy.services
 
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import ru.udemy.services.databinding.ActivityMainBinding
 
@@ -18,6 +14,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         binding.simpleService.setOnClickListener {
+            //остановка сервиса из активити!
+            // stopService(MyForegroundService.newIntent(this))
             startService(MyService.newIntent(this, 25))
         }
 
